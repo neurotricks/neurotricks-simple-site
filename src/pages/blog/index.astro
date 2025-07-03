@@ -1,14 +1,15 @@
 ---
-import fs from 'node:fs'
-import path from 'node:path'
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import fs from 'node:fs';
+import path from 'node:path';
 
-const blogDir = path.resolve('./src/pages/blog/')
+const blogDir = path.resolve('./src/pages/blog/');
 const files = fs.readdirSync(blogDir)
   .filter(f => f.endsWith('.astro') && f !== 'index.astro')
   .map(f => ({
     href: `/blog/${f.replace('.astro', '')}/`,
     name: f.replace('.astro', '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
-  }))
+  }));
 ---
 
 <h1 class="text-4xl font-bold mb-6">Блог</h1>
