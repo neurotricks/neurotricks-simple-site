@@ -11,7 +11,7 @@ const files = fs.readdirSync(blogDir)
     name: f.replace('.astro', '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
   }));
 ---
-
+<Layout>
 <h1 class="text-4xl font-bold mb-6">Блог</h1>
 
 <ul class="space-y-3">
@@ -23,3 +23,4 @@ const files = fs.readdirSync(blogDir)
     </li>
   ))}
 </ul>
+</Layout>
