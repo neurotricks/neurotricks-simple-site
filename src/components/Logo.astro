@@ -1,9 +1,18 @@
 ---
-// Компонент логотипа
+const size = 64; // Можно поменять на 48 или 96
 ---
+
 <img 
-  src="/favicon-64x64.png" 
-  alt="Neurotricks logo" 
-  width="48" height="48"
-  class="rounded-xl shadow-md hover:scale-105 transition"
+  src={`/favicon-${size}x${size}.png`} 
+  alt="Neurotricks logo"
+  width={size}
+  height={size}
+  class="
+    rounded-xl 
+    shadow-[0_0_15px_#0ff] 
+    hover:shadow-[0_0_40px_#0ff] 
+    transition 
+    duration-500 
+    hover:scale-105 
+    ease-in-out"
 />
