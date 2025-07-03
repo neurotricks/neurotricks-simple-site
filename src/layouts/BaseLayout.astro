@@ -1,9 +1,12 @@
 ---
 // src/layouts/BaseLayout.astro
 import '../styles/global.css';
-const { title = "Neurotricks" } = Astro.props;
----
+const { title = "Neurotricks", centered = false } = Astro.props;
 
+const layoutClass = centered
+  ? "flex flex-col items-center justify-center min-h-screen px-4"
+  : "max-w-3xl mx-auto px-4 py-8";
+---
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
@@ -12,9 +15,8 @@ const { title = "Neurotricks" } = Astro.props;
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
-
-  <body class="bg-gradient-to-br from-black via-zinc-900 to-gray-800 text-white font-sans min-h-screen px-4 py-8">
-    <main class="max-w-4xl mx-auto">
+  <body class="bg-gradient-to-br from-black via-zinc-900 to-gray-800 text-white font-sans min-h-screen">
+    <main class={layoutClass}>
       <slot />
     </main>
   </body>
