@@ -1,20 +1,18 @@
 ---
-const size = 96; // Измени на 64 или 128, если нужно
+const size = 96; // можно 64 или 128
 ---
 
-<img 
-  src="/logo-neurotricks.png" 
-  alt="Neurotricks Logo" 
+<object
+  data="/logo-animated.svg"
+  type="image/svg+xml"
   width={size}
   height={size}
   class="
     animate-pulse
-    rounded-xl
-    shadow-[0_0_30px_#0ff]
-    hover:shadow-[0_0_60px_#0ff]
-    transition
-    duration-700
-    ease-in-out
     hover:scale-105
+    transition
+    duration-500
+    ease-in-out
+    drop-shadow-[0_0_15px_#0ff]
   "
-/>
+></object>
