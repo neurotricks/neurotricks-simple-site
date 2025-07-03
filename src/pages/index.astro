@@ -1,27 +1,28 @@
 ---
 import AnimatedLogo from '../components/AnimatedLogo.astro'
-title: "Neurotricks — Исследуй силу ИИ"
+
+const title = "Neurotricks — Исследуй силу ИИ"
 ---
+
 <html lang="ru">
   <head>
-<!-- Favicon -->
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180x180.png" />
-<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-<meta name="theme-color" content="#000000" />
-<meta property="og:image" content="/favicon-180x180.png" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180x180.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="theme-color" content="#000000" />
+    <meta property="og:image" content="/favicon-180x180.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Neurotricks — Исследуй силу ИИ</title>
+    <title>{title}</title>
     <meta name="description" content="Гайды, эксперименты и инструменты для работы с искусственным интеллектом" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
-  <body class="bg-gradient-to-br from-black via-zinc-900 to-gray-800 text-white font-sans min-h-screen flex flex-col items-center justify-center px-4">
-    <header class="text-center mb-
 
-<header class="flex flex-col items-center text-center mb-12">
-  <AnimatedLogo />
+  <body class="bg-gradient-to-br from-black via-zinc-900 to-gray-800 text-white font-sans min-h-screen flex flex-col items-center justify-center px-4">
+    <header class="flex flex-col items-center text-center mb-12">
+      <AnimatedLogo />
       <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
         Neurotricks
       </h1>
@@ -37,9 +38,5 @@ title: "Neurotricks — Исследуй силу ИИ"
       <a href="/about/" class="hover:text-white transition">О себе</a>
       <a href="/contact/" class="hover:text-white transition">Контакты</a>
     </nav>
-
-    <footer class="mt-20 text-xs text-gray-500 text-center">
-      © 2025 Neurotricks. Сделано с 💡 и ⚡️.
-    </footer>
   </body>
 </html>
