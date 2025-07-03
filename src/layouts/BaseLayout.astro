@@ -1,0 +1,21 @@
+---
+// src/layouts/BaseLayout.astro
+const { title = "Neurotricks" } = Astro.props;
+---
+
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles/global.css" />
+  </head>
+
+  <body class="bg-gradient-to-br from-black via-zinc-900 to-gray-800 text-white font-sans min-h-screen px-4 py-8">
+    <main class="max-w-4xl mx-auto">
+      <slot />
+    </main>
+  </body>
+</html>
