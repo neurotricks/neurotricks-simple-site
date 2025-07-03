@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  integrations: [tailwind()],
   site: 'https://neurotricks.com',
+  integrations: [tailwind()],
+  styles: ['src/styles/global.css'],
 });
