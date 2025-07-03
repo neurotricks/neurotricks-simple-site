@@ -9,7 +9,7 @@ body {
 }
 
 h1 {
-  @apply text-5xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500;
+  @apply text-5xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500 text-center;
 }
 
 p {
