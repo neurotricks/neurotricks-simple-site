@@ -1,5 +1,6 @@
 ---
 // src/layouts/BaseLayout.astro
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 import '../styles/global.css';
 const { title = "Neurotricks", centered = false } = Astro.props;
 
@@ -17,6 +18,7 @@ const layoutClass = centered
   </head>
   <body class="bg-gradient-to-br from-black via-zinc-900 to-gray-800 text-white font-sans min-h-screen">
     <main class={layoutClass}>
+       <Breadcrumbs />
       <slot />
     </main>
   </body>
