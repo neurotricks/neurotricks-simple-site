@@ -1,7 +1,22 @@
 ---
-import { Breadcrumbs } from 'astro-breadcrumbs';
+import { getBreadcrumbs } from 'astro-breadcrumbs';
+
+const { url } = Astro;
+const breadcrumbs = getBreadcrumbs(url.pathname);
 ---
 
 <nav class="text-sm breadcrumbs text-gray-400 py-2 mb-6">
-  <Breadcrumbs />
+  <ul class="flex flex-wrap items-center gap-1">
+    {breadcrumbs.map((crumb, index) => (
+      <li class="inline-block">
+        {index !== breadcrumbs.length - 1 ? (
+          <a href={crumb.href} class="hover:text-white transition">
+            {crumb.label}
+          </a>
+        ) : (
+          <span class="text-gray-500">{crumb.label}</span>
+        )}
+      </li>
+    ))}
+  </ul>
 </nav>
