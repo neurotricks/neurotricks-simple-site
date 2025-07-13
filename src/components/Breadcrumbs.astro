@@ -2,8 +2,8 @@
 const { url } = Astro;
 
 // Загружаем все страницы
-const pages = await Astro.glob('../../pages/**/*.astro');
-
+//const pages = await Astro.glob('../../pages/**/*.astro');
+const allPages = await Astro.glob(['../../pages/**/*.astro', '../../pages/**/*.md']);
 // Получаем относительный путь от `src/pages`, без `.astro`
 function normalizePath(path) {
   return path
