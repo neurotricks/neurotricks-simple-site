@@ -1,27 +1,31 @@
 ---
-// src/components/Breadcrumbs.astro
 const { pathname } = Astro.url;
 const segments = pathname.split('/').filter(Boolean);
 ---
 
-<nav class="breadcrumbs text-sm mb-6 text-white">
-  <ul>
-    <li><a href="/">Главная</a></li>
+<nav class="breadcrumbs text-sm mb-6 text-gray-300">
+  <ul class="flex items-center flex-wrap gap-2">
+    <li>
+      <a href="/" class="text-cyan-400 hover:text-white transition">Главная</a>
+    </li>
     {segments.map((segment, index) => {
       const href = '/' + segments.slice(0, index + 1).join('/');
       const label = decodeURIComponent(segment)
         .replace(/-/g, ' ')
         .replace(/\b\w/g, c => c.toUpperCase());
-
       const isLast = index === segments.length - 1;
 
       return (
-        <li>
-          {isLast
-            ? <span>{label}</span>
-            : <a href={href}>{label}</a>
-          }
-        </li>
+        <>
+          <li class="text-gray-500">/</li>
+          <li>
+            {isLast ? (
+              <span class="text-gray-500">{label}</span>
+            ) : (
+              <a href={href} class="text-cyan-400 hover:text-white transition">{label}</a>
+            )}
+          </li>
+        </>
       );
     })}
   </ul>
