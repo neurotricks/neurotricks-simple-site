@@ -1,10 +1,12 @@
 ---
 const { url } = Astro;
 
-// 1. Подгружаем все страницы с frontmatter
-const pages = await Astro.glob('../../pages/**/*.{astro,md,mdx}');
+// Подгружаем все .astro и .md(x) страницы
+const astroPages = await Astro.glob('../../pages/**/*.astro');
+const markdownPages = await Astro.glob('../../pages/**/*.{md,mdx}');
+const pages = [...astroPages, ...markdownPages];
 
-// 2. Приводим путь к виду как в `url.pathname`
+// Функция нормализации пути
 function normalizePath(path) {
   return path
     .replace('../../pages', '')
@@ -12,13 +14,11 @@ function normalizePath(path) {
     .replace(/\.(astro|mdx?|md)$/, '') || '/';
 }
 
-// 3. Находим текущую страницу
+// Текущая страница
 const currentPage = pages.find(p => normalizePath(p.file) === url.pathname);
-
-// 4. Пытаемся получить title из frontmatter
 const resolvedTitle = currentPage?.frontmatter?.title;
 
-// 5. Словарь переводов сегментов
+// Словарь локализаций
 function formatLabel(segment) {
   const map = {
     blog: 'Блог',
@@ -30,7 +30,7 @@ function formatLabel(segment) {
   return map[segment] || segment.charAt(0).toUpperCase() + segment.slice(1);
 }
 
-// 6. Генерация массива крошек
+// Генерация крошек
 function generateBreadcrumbs(pathname) {
   const segments = pathname.split('/').filter(Boolean);
   const crumbs = segments.map((segment, i) => {
@@ -39,6 +39,7 @@ function generateBreadcrumbs(pathname) {
     const label = isLast && resolvedTitle ? resolvedTitle : formatLabel(segment);
     return { href, label };
   });
+
   return [{ href: '/', label: 'Главная' }, ...crumbs];
 }
 
