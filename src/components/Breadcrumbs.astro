@@ -12,7 +12,7 @@ function normalizePath(path) {
     .replace(/\.astro$/, '') || '/';
 }
 
-const currentPage = pages.find(page => normalizePath(page.file) === url.pathname);
+const currentPage = allPages.find(page => normalizePath(page.file) === url.pathname);
 
 // Берём title из frontmatter, если есть
 const pageTitle = currentPage?.frontmatter?.title;
