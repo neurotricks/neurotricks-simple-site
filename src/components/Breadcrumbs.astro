@@ -51,7 +51,7 @@ const lastIndex = breadcrumbs.length - 1;
     {breadcrumbs.map((crumb, index) => (
       <li class="inline-flex items-center gap-1" key={crumb.href + index}>
         {index === 0 ? (
-          <a href={crumb.href} aria-label="Главная" class="flex items-center gap-1 hover:text-white transition">
+          <a href={crumb.href} class="flex items-center gap-1 hover:text-white transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-cyan-400" viewBox="0 0 20 20" fill="currentColor">
               <path d="M10.707 1.293a1 1 0 00-1.414 0l-7 7A1 1 0 003 9h1v6a2 2 0 002 2h2a1 1 0 001-1v-4h2v4a1 1 0 001 1h2a2 2 0 002-2V9h1a1 1 0 00.707-1.707l-7-7z" />
             </svg>
