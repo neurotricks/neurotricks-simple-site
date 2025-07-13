@@ -1,12 +1,15 @@
 ---
 const { pathname } = Astro.url;
+
+// фильтруем пустые сегменты, чтобы не было лишнего "/ >"
 const segments = pathname.split('/').filter(Boolean);
 ---
 
-<nav class="breadcrumbs text-sm mb-6 text-gray-400">
-  <ul class="flex items-center flex-wrap gap-1">
+<nav class="text-sm mb-6">
+  <ul class="flex items-center flex-wrap gap-1 text-gray-400">
+    <!-- Домашняя ссылка -->
     <li class="flex items-center gap-1">
-      <a href="/" class="hover:text-white transition text-cyan-400 inline-flex items-center gap-1">
+      <a href="/" class="hover:text-white transition inline-flex items-center gap-1 text-cyan-400">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4" />
@@ -14,6 +17,8 @@ const segments = pathname.split('/').filter(Boolean);
         Главная
       </a>
     </li>
+
+    <!-- Остальные крошки -->
     {segments.map((segment, index) => {
       const href = '/' + segments.slice(0, index + 1).join('/');
       const label = decodeURIComponent(segment)
