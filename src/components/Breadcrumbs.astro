@@ -4,7 +4,6 @@ import { getBreadcrumbs } from 'astro-breadcrumbs';
 const { url } = Astro;
 const rawCrumbs = getBreadcrumbs(url.pathname);
 
-// Убираем подряд идущие дубли (по label и href)
 const breadcrumbs = rawCrumbs.filter((crumb, index, arr) => {
   if (index === 0) return true;
   const prev = arr[index - 1];
@@ -13,6 +12,14 @@ const breadcrumbs = rawCrumbs.filter((crumb, index, arr) => {
 
 const lastIndex = breadcrumbs.length - 1;
 ---
+
+<pre>
+Raw crumbs: {JSON.stringify(rawCrumbs, null, 2)}
+</pre>
+<pre>
+Filtered breadcrumbs: {JSON.stringify(breadcrumbs, null, 2)}
+</pre>
+
 <nav class="text-sm breadcrumbs text-gray-400 py-2 mb-6">
   <ul class="flex flex-wrap items-center gap-1">
     {breadcrumbs.map((crumb, index) => (
