@@ -28,8 +28,19 @@ const segments = pathname.split('/').filter(Boolean);
 
       return (
         <>
-          <li class="px-1 text-gray-500">›</li>
-          <li>
+          <li class="flex items-center gap-1">
+  <span class="text-gray-500">›</span>
+  {isLast ? (
+    <span class="text-gray-500">{label}</span>
+  ) : (
+    <a
+      href={href}
+      class="hover:text-white transition bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500"
+    >
+      {label}
+    </a>
+  )}
+</li>
             {isLast ? (
               <span class="text-gray-500">{label}</span>
             ) : (
