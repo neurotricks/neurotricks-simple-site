@@ -6,11 +6,13 @@ const allPages = await Astro.glob('/src/pages/**/*.{astro,md,mdx}');
 function normalizePath(path) {
   return path
     .replace('/src/pages', '')
-    .replace(/\/index$/, '') // убрать /index в конце
+    .replace(/\/index$/, '')
     .replace(/\.(astro|md|mdx)$/, '') || '/';
 }
 
-const currentPage = allPages.find(page => normalizePath(page.file) === url.pathname);
+const cleanUrl = url.pathname.replace(/\/$/, '') || '/';
+
+const currentPage = allPages.find(page => normalizePath(page.file) === cleanUrl);
 
 const pageTitle = currentPage?.frontmatter?.title;
 
