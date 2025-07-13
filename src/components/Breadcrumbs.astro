@@ -40,7 +40,8 @@ function generateBreadcrumbs(pathname) {
 
 const breadcrumbs = generateBreadcrumbs(url.pathname);
 const lastIndex = breadcrumbs.length - 1;
-
+const fallbackTitle = currentPage?.file.split('/').pop().replace(/\.(astro|md)$/, '') ?? '';
+const pageTitle = currentPage?.frontmatter?.title || formatLabel(fallbackTitle);
 ---
 <nav class="text-sm text-gray-400 py-2 mb-6">
   <ul class="flex flex-wrap items-center gap-1">
