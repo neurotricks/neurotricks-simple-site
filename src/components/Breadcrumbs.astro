@@ -4,17 +4,8 @@ import { getBreadcrumbs } from 'astro-breadcrumbs';
 const { url } = Astro;
 const rawCrumbs = getBreadcrumbs(url.pathname);
 
-// Уникальные по label + href
-const uniqueCrumbs = rawCrumbs.filter(
-  (crumb, index, self) =>
-    index ===
-    self.findIndex(
-      (c) => c.label === crumb.label && c.href === crumb.href
-    )
-);
-
-// Убираем соседние дубликаты
-const breadcrumbs = uniqueCrumbs.filter((crumb, index, arr) => {
+// Убираем подряд идущие дубли (по label и href)
+const breadcrumbs = rawCrumbs.filter((crumb, index, arr) => {
   if (index === 0) return true;
   const prev = arr[index - 1];
   return !(crumb.label === prev.label && crumb.href === prev.href);
@@ -22,7 +13,6 @@ const breadcrumbs = uniqueCrumbs.filter((crumb, index, arr) => {
 
 const lastIndex = breadcrumbs.length - 1;
 ---
-
 <nav class="text-sm breadcrumbs text-gray-400 py-2 mb-6">
   <ul class="flex flex-wrap items-center gap-1">
     {breadcrumbs.map((crumb, index) => (
