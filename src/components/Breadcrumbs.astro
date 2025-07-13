@@ -2,6 +2,7 @@
 const { url } = Astro;
 
 // ВАЖНО: путь должен быть относительным к текущему компоненту!
+// ✅ Работает при локальной сборке и на Vercel
 const astroPages = await Astro.glob('../pages/**/*.astro');
 const markdownPages = await Astro.glob('../pages/**/*.{md,mdx}');
 const pages = [...astroPages, ...markdownPages];
