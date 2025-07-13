@@ -4,10 +4,21 @@ import { getBreadcrumbs } from 'astro-breadcrumbs';
 const { url } = Astro;
 const rawCrumbs = getBreadcrumbs(url.pathname);
 
-// Удаляем дубликаты по label
-const breadcrumbs = rawCrumbs.filter(
-  (crumb, index, self) => index === self.findIndex(c => c.label === crumb.label)
+// Уникальные по label + href
+const uniqueCrumbs = rawCrumbs.filter(
+  (crumb, index, self) =>
+    index ===
+    self.findIndex(
+      (c) => c.label === crumb.label && c.href === crumb.href
+    )
 );
+
+// Убираем соседние дубликаты
+const breadcrumbs = uniqueCrumbs.filter((crumb, index, arr) => {
+  if (index === 0) return true;
+  const prev = arr[index - 1];
+  return !(crumb.label === prev.label && crumb.href === prev.href);
+});
 
 const lastIndex = breadcrumbs.length - 1;
 ---
@@ -15,7 +26,7 @@ const lastIndex = breadcrumbs.length - 1;
 <nav class="text-sm breadcrumbs text-gray-400 py-2 mb-6">
   <ul class="flex flex-wrap items-center gap-1">
     {breadcrumbs.map((crumb, index) => (
-      <li class="inline-flex items-center gap-1">
+      <li class="inline-flex items-center gap-1" key={crumb.href + index}>
         {index === 0 ? (
           <a href={crumb.href} aria-label="Главная" class="flex items-center gap-1 hover:text-white transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-cyan-400" viewBox="0 0 20 20" fill="currentColor">
