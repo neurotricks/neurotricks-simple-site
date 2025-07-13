@@ -10,6 +10,7 @@ function normalizePath(path) {
     .replace(/\.(astro|md|mdx)$/, '') || '/';
 }
 
+
 const cleanUrl = url.pathname.replace(/\/$/, '') || '/';
 
 const currentPage = allPages.find(page => normalizePath(page.file) === cleanUrl);
