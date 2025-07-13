@@ -9,7 +9,7 @@ function normalizePath(filePath) {
     .replace(/\.(astro|md)$/, '') || '/';
 }
 
-const allPages = await Astro.glob(['../../pages/**/*.astro', '../../pages/**/*.md']);
+const allPages = await Astro.glob(['../pages/**/*.astro', '../pages/**/*.md']);
 
 const currentPage = allPages.find(page => normalizePath(page.file) === url.pathname);
 
