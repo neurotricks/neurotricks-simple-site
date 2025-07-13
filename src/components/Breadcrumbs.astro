@@ -1,43 +1,37 @@
 ---
 const { url } = Astro;
 
-// ВАЖНО: путь должен быть относительным к текущему компоненту!
-// ✅ Работает при локальной сборке и на Vercel
-const astroPages = await Astro.glob('../pages/**/*.astro');
-const markdownPages = await Astro.glob('../pages/**/*.{md,mdx}');
-const pages = [...astroPages, ...markdownPages];
+const allPages = await Astro.glob('/src/pages/**/*.{astro,md,mdx}');
 
-// Убираем лишние части пути
 function normalizePath(path) {
   return path
-    .replace('../pages', '')
-    .replace(/\/index$/, '')
-    .replace(/\.(astro|mdx?|md)$/, '') || '/';
+    .replace('/src/pages', '')
+    .replace(/\/index$/, '') // убрать /index в конце
+    .replace(/\.(astro|md|mdx)$/, '') || '/';
 }
 
-// Находим текущую страницу
-const currentPage = pages.find(p => normalizePath(p.file) === url.pathname);
-const resolvedTitle = currentPage?.frontmatter?.title;
+const currentPage = allPages.find(page => normalizePath(page.file) === url.pathname);
 
-// Русские подписи
+const pageTitle = currentPage?.frontmatter?.title;
+
 function formatLabel(segment) {
   const map = {
     blog: 'Блог',
     lab: 'Лаборатория',
     portfolio: 'Портфолио',
     contacts: 'Контакты',
-    about: 'О сайте',
   };
   return map[segment] || segment.charAt(0).toUpperCase() + segment.slice(1);
 }
 
-// Генерация крошек
 function generateBreadcrumbs(pathname) {
   const segments = pathname.split('/').filter(Boolean);
-  const crumbs = segments.map((segment, i) => {
-    const href = '/' + segments.slice(0, i + 1).join('/');
-    const isLast = i === segments.length - 1;
-    const label = isLast && resolvedTitle ? resolvedTitle : formatLabel(segment);
+  const uniqueSegments = Array.from(new Set(segments));
+
+  const crumbs = uniqueSegments.map((segment, i) => {
+    const href = '/' + uniqueSegments.slice(0, i + 1).join('/');
+    const isLast = i === uniqueSegments.length - 1;
+    const label = isLast && pageTitle ? pageTitle : formatLabel(segment);
     return { href, label };
   });
 
@@ -47,7 +41,6 @@ function generateBreadcrumbs(pathname) {
 const breadcrumbs = generateBreadcrumbs(url.pathname);
 const lastIndex = breadcrumbs.length - 1;
 ---
-
 <nav class="text-sm text-gray-400 py-2 mb-6">
   <ul class="flex flex-wrap items-center gap-1">
     {breadcrumbs.map((crumb, index) => (
