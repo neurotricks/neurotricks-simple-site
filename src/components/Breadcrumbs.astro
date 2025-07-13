@@ -3,8 +3,12 @@ const { url } = Astro;
 
 function generateBreadcrumbs(pathname) {
   const segments = pathname.split('/').filter(Boolean);
-  const crumbs = segments.map((segment, i) => {
-    const href = '/' + segments.slice(0, i + 1).join('/');
+  const uniqueSegments = [];
+  segments.forEach(seg => {
+    if (!uniqueSegments.includes(seg)) uniqueSegments.push(seg);
+  });
+  const crumbs = uniqueSegments.map((segment, i) => {
+    const href = '/' + uniqueSegments.slice(0, i + 1).join('/');
     const label = segment.charAt(0).toUpperCase() + segment.slice(1);
     return { href, label };
   });
@@ -24,6 +28,7 @@ const lastIndex = breadcrumbs.length - 1;
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-cyan-400" viewBox="0 0 20 20" fill="currentColor">
               <path d="M10.707 1.293a1 1 0 00-1.414 0l-7 7A1 1 0 003 9h1v6a2 2 0 002 2h2a1 1 0 001-1v-4h2v4a1 1 0 001 1h2a2 2 0 002-2V9h1a1 1 0 00.707-1.707l-7-7z" />
             </svg>
+            {crumb.label}
           </a>
         ) : index !== lastIndex ? (
           <a href={crumb.href} class="hover:text-white transition bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
@@ -32,7 +37,9 @@ const lastIndex = breadcrumbs.length - 1;
         ) : (
           <span class="text-gray-500">{crumb.label}</span>
         )}
-        {index < lastIndex && <span class="text-gray-600">›</span>}
+        {index < lastIndex && (
+          <span class="text-gray-600 select-none">›</span>
+        )}
       </li>
     ))}
   </ul>
