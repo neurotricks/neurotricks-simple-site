@@ -1,59 +1,33 @@
 ---
-const { pathname } = Astro.url;
+import { getBreadcrumbs } from 'astro-breadcrumbs';
 
-// фильтруем пустые сегменты, чтобы не было лишнего "/ >"
-const segments = pathname.split('/').filter(Boolean);
+const { url } = Astro;
+const breadcrumbs = getBreadcrumbs(url.pathname);
+const lastIndex = breadcrumbs.length - 1;
 ---
 
-<nav class="text-sm mb-6">
-  <ul class="flex items-center flex-wrap gap-1 text-gray-400">
-    <!-- Домашняя ссылка -->
-    <li class="flex items-center gap-1">
-      <a href="/" class="hover:text-white transition inline-flex items-center gap-1 text-cyan-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4" />
-        </svg>
-        Главная
-      </a>
-    </li>
+<nav class="text-sm breadcrumbs text-gray-400 py-2 mb-6">
+  <ul class="flex flex-wrap items-center gap-1">
+    {breadcrumbs.map((crumb, index) => (
+      <li class="inline-flex items-center gap-1">
+        {index === 0 ? (
+          <a href={crumb.href} aria-label="Главная" class="flex items-center gap-1 hover:text-white transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-cyan-400" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10.707 1.293a1 1 0 00-1.414 0l-7 7A1 1 0 003 9h1v6a2 2 0 002 2h2a1 1 0 001-1v-4h2v4a1 1 0 001 1h2a2 2 0 002-2V9h1a1 1 0 00.707-1.707l-7-7z" />
+            </svg>
+          </a>
+        ) : index !== lastIndex ? (
+          <a href={crumb.href} class="hover:text-white transition bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
+            {crumb.label}
+          </a>
+        ) : (
+          <span class="text-gray-500">{crumb.label}</span>
+        )}
 
-    <!-- Остальные крошки -->
-    {segments.map((segment, index) => {
-      const href = '/' + segments.slice(0, index + 1).join('/');
-      const label = decodeURIComponent(segment)
-        .replace(/-/g, ' ')
-        .replace(/\b\w/g, c => c.toUpperCase());
-      const isLast = index === segments.length - 1;
-
-      return (
-        <>
-          <li class="flex items-center gap-1">
-  <span class="text-gray-500">›</span>
-  {isLast ? (
-    <span class="text-gray-500">{label}</span>
-  ) : (
-    <a
-      href={href}
-      class="hover:text-white transition bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500"
-    >
-      {label}
-    </a>
-  )}
-</li>
-            {isLast ? (
-              <span class="text-gray-500">{label}</span>
-            ) : (
-              <a
-                href={href}
-                class="hover:text-white transition bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500"
-              >
-                {label}
-              </a>
-            )}
-          </li>
-        </>
-      );
-    })}
+        {index < lastIndex && (
+          <span class="text-gray-600">›</span>
+        )}
+      </li>
+    ))}
   </ul>
 </nav>
