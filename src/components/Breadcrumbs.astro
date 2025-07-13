@@ -2,7 +2,13 @@
 import { getBreadcrumbs } from 'astro-breadcrumbs';
 
 const { url } = Astro;
-const breadcrumbs = getBreadcrumbs(url.pathname);
+const rawCrumbs = getBreadcrumbs(url.pathname);
+
+// Удаляем дубликаты по label
+const breadcrumbs = rawCrumbs.filter(
+  (crumb, index, self) => index === self.findIndex(c => c.label === crumb.label)
+);
+
 const lastIndex = breadcrumbs.length - 1;
 ---
 
@@ -24,9 +30,7 @@ const lastIndex = breadcrumbs.length - 1;
           <span class="text-gray-500">{crumb.label}</span>
         )}
 
-        {index < lastIndex && (
-          <span class="text-gray-600">›</span>
-        )}
+        {index < lastIndex && <span class="text-gray-600">›</span>}
       </li>
     ))}
   </ul>
