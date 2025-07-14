@@ -42,6 +42,7 @@ function generateBreadcrumbs(pathname) {
   return [{ href: '/', label: 'Главная' }, ...crumbs];
 }
 
+
 const breadcrumbs = generateBreadcrumbs(url.pathname);
 const lastIndex = breadcrumbs.length - 1;
 ---
